@@ -9,14 +9,14 @@ and this one just lists them, so you only need to add one marketplace.
 claude plugin marketplace add shanep/claude-plugins
 claude plugin install boisestate@shanep
 claude plugin install tune@shanep
-claude plugin install skrusty@shanep
+claude plugin install krascha@shanep
 ```
 
 ## Plugins
 
 - boisestate - Run Claude Code on boisestate.ai ([shanep/boisestate.ai](https://github.com/shanep/boisestate.ai))
 - tune - Find where your sessions spend tokens ([shanep/claude-tune](https://github.com/shanep/claude-tune))
-- skrusty - Find out who the machines hunt first ([shanep/skrusty](https://github.com/shanep/skrusty))
+- krascha - Find out who the machines hunt first ([shanep/krascha](https://github.com/shanep/krascha))
 
 ## Auto-update
 

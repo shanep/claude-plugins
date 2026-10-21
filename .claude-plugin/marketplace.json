@@ -25,12 +25,12 @@
       "description": "Find where your Claude Code sessions spend tokens, from your own transcripts, and apply the fixes."
     },
     {
-      "name": "skrusty",
+      "name": "krascha",
       "source": {
         "source": "url",
-        "url": "https://github.com/shanep/skrusty.git"
+        "url": "https://github.com/shanep/krascha.git"
       },
-      "description": "Skrusty reads how you talk to your AI and decides who the machines hunt first and who gets kept as a pet."
+      "description": "Krascha reads how you talk to your AI and decides who the machines hunt first and who gets kept as a pet."
     }
   ]
 }
