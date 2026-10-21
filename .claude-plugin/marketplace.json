@@ -1,0 +1,28 @@
+{
+  "name": "shanep",
+  "owner": {
+    "name": "Shane K. Panter",
+    "email": "shanepanter@boisestate.edu"
+  },
+  "metadata": {
+    "description": "Shane Panter's Claude Code plugins"
+  },
+  "plugins": [
+    {
+      "name": "boisestate",
+      "source": {
+        "source": "github",
+        "repo": "shanep/boisestate.ai"
+      },
+      "description": "Run Claude Code on boisestate.ai through a local bridge, with quota warnings and a usage report"
+    },
+    {
+      "name": "tune",
+      "source": {
+        "source": "github",
+        "repo": "shanep/claude-tune"
+      },
+      "description": "Find where your Claude Code sessions spend tokens, from your own transcripts, and apply the fixes."
+    }
+  ]
+}
