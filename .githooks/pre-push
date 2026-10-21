@@ -1,0 +1,3 @@
+#!/bin/sh
+# A push to main goes live right away, so install the plugins first.
+sh scripts/check.sh && exec sh scripts/test-install.sh

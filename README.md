@@ -35,3 +35,25 @@ this to `~/.claude/settings.json` so new plugin versions show up on their own:
 Add an entry to `.claude-plugin/marketplace.json` with a `url` source and the
 repo's https URL. A `github` source clones over ssh, so it fails on machines
 without a GitHub key.
+
+## Checks
+
+A push to main goes live right away on every machine with auto-update on,
+including student machines, so the manifest gets checked before it leaves.
+
+- `scripts/check.sh` runs `claude plugin validate --strict .` and fails if any
+  plugin is not a `url` source with an https URL.
+- `scripts/test-install.sh` adds this checkout as a marketplace and installs
+  every plugin into a throwaway config with ssh turned off.
+
+The pre-commit hook runs the first one and the pre-push hook runs both. Claude
+Code sets `core.hooksPath` to `.githooks` when a session starts here (see
+`.claude/settings.json`). Outside Claude Code, run this once after cloning:
+
+```
+git config core.hooksPath .githooks
+```
+
+GitHub Actions runs both scripts on Ubuntu and macOS for every push to main,
+every pull request, and once a week, since the plugins live in other repos and
+can break without a change here.
