@@ -32,5 +32,6 @@ this to `~/.claude/settings.json` so new plugin versions show up on their own:
 
 ## Adding a plugin
 
-Add an entry to `.claude-plugin/marketplace.json` with a `github` source that
-points at the plugin's repo.
+Add an entry to `.claude-plugin/marketplace.json` with a `url` source and the
+repo's https URL. A `github` source clones over ssh, so it fails on machines
+without a GitHub key.

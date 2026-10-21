@@ -11,16 +11,16 @@
     {
       "name": "boisestate",
       "source": {
-        "source": "github",
-        "repo": "shanep/boisestate.ai"
+        "source": "url",
+        "url": "https://github.com/shanep/boisestate.ai.git"
       },
       "description": "Run Claude Code on boisestate.ai through a local bridge, with quota warnings and a usage report"
     },
     {
       "name": "tune",
       "source": {
-        "source": "github",
-        "repo": "shanep/claude-tune"
+        "source": "url",
+        "url": "https://github.com/shanep/claude-tune.git"
       },
       "description": "Find where your Claude Code sessions spend tokens, from your own transcripts, and apply the fixes."
     }
