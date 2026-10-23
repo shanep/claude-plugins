@@ -135,11 +135,12 @@ changes the brief did not ask for, weakened or deleted tests, and anything
 that leaks a secret. Do not edit files. End with a line that is exactly
 VERDICT: PASS or VERDICT: BLOCK, after your findings."
 
-# The sessions get the OAuth token and nothing else that grants access.
+# The sessions get the OAuth token and nothing else that grants access. The
+# runner has none of my settings, so turn off the Co-Authored-By trailer here.
 agent() {
 	env -u GH_TOKEN -u GITHUB_TOKEN -u ACTIONS_RUNTIME_TOKEN \
 		-u ACTIONS_ID_TOKEN_REQUEST_TOKEN -u ACTIONS_ID_TOKEN_REQUEST_URL \
-		claude -p "$@"
+		claude -p "$@" --settings '{"attribution": {"commit": "", "pr": ""}}'
 }
 
 feedback=
@@ -188,6 +189,11 @@ if [ "$attempt" -gt "$attempts" ]; then
 		"The review or the checks failed $attempts times, so nothing landed. The last findings are below."
 	exit 1
 fi
+
+# My commits never carry a Co-Authored-By trailer, so strip any a session
+# added anyway before anything leaves the runner.
+FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f \
+	--msg-filter "sed '/^[Cc]o-[Aa]uthored-[Bb]y:/d' | git stripspace" "$base..HEAD" >/dev/null
 
 # Land it. A push from another session in the meantime means rebase and try
 # once more. The repo's pre-push hook, if it has one, runs here too.
