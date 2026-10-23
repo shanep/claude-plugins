@@ -1,0 +1,67 @@
+# An unattended Claude session for a repo's own workflows: it fixes CI when
+# it fails, works an issue I label "agent", or runs a scheduled task. One
+# session makes the change, a second reviews it, and run.sh lands it on the
+# default branch only when the review and the checks pass.
+#
+# The calling job checks out the repo with persist-credentials: false and
+# needs actions: write, contents: write and issues: write.
+
+name: Claude agent
+description: Fix CI, work an issue, or run a task, then review and land the change.
+
+inputs:
+  mode:
+    description: ci-fix, issue or task
+    required: true
+  claude-oauth-token:
+    description: Token from `claude setup-token`
+    required: true
+  github-token:
+    description: Token for the push and the issue comments. The Claude sessions never see it.
+    default: ${{ github.token }}
+  run-id:
+    description: 'ci-fix: the run that failed'
+    default: ${{ github.event.workflow_run.id }}
+  head-sha:
+    description: 'ci-fix: the commit the failed run checked out'
+    default: ${{ github.event.workflow_run.head_sha }}
+  issue:
+    description: 'issue: the issue number'
+    default: ${{ github.event.issue.number }}
+  task:
+    description: 'task: what to do'
+    default: ''
+  check:
+    description: Shell command that must pass before the push
+    default: ''
+  ci-workflows:
+    description: Workflow files to start after the push and wait on, space separated
+    default: ''
+  attempts:
+    description: How many fix and review rounds to try
+    default: '2'
+
+runs:
+  using: composite
+  steps:
+    - name: Install Claude Code
+      shell: sh
+      run: |
+        if ! command -v claude >/dev/null; then
+          curl -fsSL https://claude.ai/install.sh | bash
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+        fi
+    - name: Run the agent
+      shell: sh
+      run: sh "$GITHUB_ACTION_PATH/run.sh"
+      env:
+        MODE: ${{ inputs.mode }}
+        CLAUDE_CODE_OAUTH_TOKEN: ${{ inputs.claude-oauth-token }}
+        GH_TOKEN: ${{ inputs.github-token }}
+        RUN_ID: ${{ inputs.run-id }}
+        HEAD_SHA: ${{ inputs.head-sha }}
+        ISSUE: ${{ inputs.issue }}
+        TASK: ${{ inputs.task }}
+        CHECK: ${{ inputs.check }}
+        CI_WORKFLOWS: ${{ inputs.ci-workflows }}
+        ATTEMPTS: ${{ inputs.attempts }}
