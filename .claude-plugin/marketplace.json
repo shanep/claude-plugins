@@ -38,7 +38,7 @@
         "source": "url",
         "url": "https://github.com/shanep/claude-DrBOOM.git"
       },
-      "description": "Play your own sounds when Claude finishes, needs attention, or asks for permission, with switchable sound profiles"
+      "description": "Dr. BOOM's Claude Code setup: fullscreen TUI, names, and your own sounds on hook events with switchable sound profiles"
     }
   ]
 }
