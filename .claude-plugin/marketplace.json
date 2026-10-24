@@ -31,6 +31,14 @@
         "url": "https://github.com/shanep/krascha.git"
       },
       "description": "Krascha reads how you talk to your AI and decides who the machines hunt first and who gets kept as a pet."
+    },
+    {
+      "name": "drboom-sounds",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/shanep/claude-DrBOOM.git"
+      },
+      "description": "Play your own sounds when Claude finishes, needs attention, or asks for permission, with switchable sound profiles"
     }
   ]
 }
