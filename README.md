@@ -10,7 +10,7 @@ claude plugin marketplace add shanep/claude-plugins
 claude plugin install boisestate@shanep
 claude plugin install tune@shanep
 claude plugin install krascha@shanep
-claude plugin install drboom-sounds@shanep
+claude plugin install drboom@shanep
 ```
 
 ## Plugins
@@ -18,7 +18,7 @@ claude plugin install drboom-sounds@shanep
 - boisestate - Run Claude Code on boisestate.ai ([shanep/boisestate.ai](https://github.com/shanep/boisestate.ai))
 - tune - Find where your sessions spend tokens ([shanep/claude-tune](https://github.com/shanep/claude-tune))
 - krascha - Find out who the machines hunt first ([shanep/krascha](https://github.com/shanep/krascha))
-- drboom-sounds - Play your own sounds on Claude Code events ([shanep/claude-DrBOOM](https://github.com/shanep/claude-DrBOOM))
+- drboom - Dr. BOOM's Claude Code setup: names, a status line, a stats band and sound profiles ([shanep/claude-DrBOOM](https://github.com/shanep/claude-DrBOOM))
 
 ## Auto-update
 

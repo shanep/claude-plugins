@@ -33,12 +33,12 @@
       "description": "Krascha reads how you talk to your AI and decides who the machines hunt first and who gets kept as a pet."
     },
     {
-      "name": "drboom-sounds",
+      "name": "drboom",
       "source": {
         "source": "url",
         "url": "https://github.com/shanep/claude-DrBOOM.git"
       },
-      "description": "Dr. BOOM's Claude Code setup: fullscreen TUI, names, and your own sounds on hook events with switchable sound profiles"
+      "description": "Dr. BOOM's Claude Code setup: names, a status line, a stats band and switchable sound profiles"
     }
   ]
 }
