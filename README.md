@@ -18,7 +18,7 @@ claude plugin install drboom@shanep
 - boisestate - Run Claude Code on boisestate.ai ([shanep/boisestate.ai](https://github.com/shanep/boisestate.ai))
 - tune - Find where your sessions spend tokens ([shanep/claude-tune](https://github.com/shanep/claude-tune))
 - krascha - Find out who the machines hunt first ([shanep/krascha](https://github.com/shanep/krascha))
-- drboom - Dr. BOOM's Claude Code setup: names, a status line, a stats band and sound profiles ([shanep/claude-DrBOOM](https://github.com/shanep/claude-DrBOOM))
+- drboom - Dr. BOOM's Claude Code setup: names, a status line, a stats band, a spinner and sound profiles ([shanep/claude-DrBOOM](https://github.com/shanep/claude-DrBOOM))
 
 ## Auto-update
 
