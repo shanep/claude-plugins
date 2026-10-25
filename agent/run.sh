@@ -73,6 +73,35 @@ report() {
 	summary "$title"
 }
 
+# Post what a session left for a person to decide (questions.md, see the
+# rules below): a comment on the issue it was working on, or an issue labeled
+# agent-question, which a second run with the same brief comments on instead.
+# It runs on every exit, so the questions arrive whether or not anything landed.
+questions() {
+	[ -s "$work/questions.md" ] || return 0
+	body=$work/questions-body.md
+	{
+		echo "An agent found things it left for a person to decide."
+		echo
+		cat "$work/questions.md"
+		echo
+		echo "Run: ${GITHUB_SERVER_URL:-https://github.com}/$GITHUB_REPOSITORY/actions/runs/${GITHUB_RUN_ID:-}"
+	} | redact >"$body"
+	if [ "$MODE" = issue ]; then
+		gh issue comment "$ISSUE" --body-file "$body"
+		return 0
+	fi
+	title="Agent questions: $(head -n 1 "$brief" | cut -c 1-80)"
+	gh label create agent-question --color FBCA04 --description 'An agent left this for a person to decide' --force >/dev/null
+	open=$(gh issue list --label agent-question --state open --json number,title \
+		--jq "map(select(.title == \"$title\")) | .[0].number // empty")
+	if [ -n "$open" ]; then
+		gh issue comment "$open" --body-file "$body"
+	else
+		gh issue create --title "$title" --label agent-question --body-file "$body"
+	fi
+}
+
 # The brief: what to do, written to a file the sessions read.
 brief=$work/brief.md
 case $MODE in
@@ -118,6 +147,7 @@ task)
 	exit 2
 	;;
 esac
+trap questions EXIT
 
 rules="You are running unattended in GitHub Actions, on a throwaway checkout of
 $GITHUB_REPOSITORY on $default. Nobody is watching, so do not ask questions.
@@ -126,7 +156,10 @@ branches, pushing, landing, releases and skills, since none of those apply here.
 Make the change, add or update tests for it, run the checks the repo has, and
 commit on the current branch with a short message in the imperative mood. Do not
 push, tag or release. Do not edit .github/workflows. If no change is needed, or
-you cannot make it work, make no commit and say why in your last message."
+you cannot make it work, make no commit and say why in your last message.
+When something needs a person to decide, like two docs that disagree on what
+is right, do not guess: leave it unchanged and add it to $work/questions.md,
+one short paragraph each, naming the file and line and why it needs a person."
 
 review_rules="You are reviewing a change an agent made, unattended, on
 $GITHUB_REPOSITORY. It lands on $default with no other review if you pass it.
@@ -154,7 +187,7 @@ Your last try did not land. Fix what this says, with more commits:
 
 $(cat "$feedback")"
 	fi
-	agent "$prompt" --append-system-prompt "$rules" \
+	agent "$prompt" --append-system-prompt "$rules" --add-dir "$work" \
 		--allowedTools Read Edit Write Glob Grep Bash \
 		--disallowedTools 'Bash(git push:*)' WebFetch WebSearch \
 		>"$work/last.txt" || true
