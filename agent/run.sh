@@ -93,8 +93,9 @@ questions() {
 	fi
 	title="Agent questions: $(head -n 1 "$brief" | cut -c 1-80)"
 	gh label create agent-question --color FBCA04 --description 'An agent left this for a person to decide' --force >/dev/null
-	open=$(gh issue list --label agent-question --state open --json number,title \
-		--jq "map(select(.title == \"$title\")) | .[0].number // empty")
+	# jq --arg, since a quote in the brief would break a title spliced into the filter.
+	open=$(gh issue list --label agent-question --state open --json number,title |
+		jq -r --arg t "$title" 'map(select(.title == $t)) | .[0].number // empty')
 	if [ -n "$open" ]; then
 		gh issue comment "$open" --body-file "$body"
 	else
@@ -147,7 +148,8 @@ task)
 	exit 2
 	;;
 esac
-trap questions EXIT
+# A failed post must not change how the job ends.
+trap 'status=$?; questions || echo "could not post the agent questions" >&2; exit $status' EXIT
 
 rules="You are running unattended in GitHub Actions, on a throwaway checkout of
 $GITHUB_REPOSITORY on $default. Nobody is watching, so do not ask questions.
