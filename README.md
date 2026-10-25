@@ -11,6 +11,7 @@ claude plugin install boisestate@shanep
 claude plugin install tune@shanep
 claude plugin install krascha@shanep
 claude plugin install drboom@shanep
+claude plugin install workflow@shanep
 ```
 
 ## Plugins
@@ -19,6 +20,7 @@ claude plugin install drboom@shanep
 - tune - Find where your sessions spend tokens ([shanep/claude-tune](https://github.com/shanep/claude-tune))
 - krascha - Find out who the machines hunt first ([shanep/krascha](https://github.com/shanep/krascha))
 - drboom - Dr. BOOM's Claude Code setup: names, a status line, a stats band, a spinner and sound profiles ([shanep/claude-DrBOOM](https://github.com/shanep/claude-DrBOOM))
+- workflow - Keep parallel sessions in one repo out of each other's files ([shanep/claude-workflow](https://github.com/shanep/claude-workflow))
 
 ## Auto-update
 

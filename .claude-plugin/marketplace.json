@@ -39,6 +39,14 @@
         "url": "https://github.com/shanep/claude-DrBOOM.git"
       },
       "description": "Dr. BOOM's Claude Code setup: names, a status line, a stats band, a spinner and switchable sound profiles"
+    },
+    {
+      "name": "workflow",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/shanep/claude-workflow.git"
+      },
+      "description": "Keep parallel Claude Code sessions in one repo out of each other's files"
     }
   ]
 }
